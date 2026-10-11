@@ -26,13 +26,6 @@ Prebuilt, statically-linked binaries are attached to the
 | Linux x86-64   | `reverseShell_udf_linux64.so`|
 | Linux i386     | `reverseShell_udf_linux32.so`|
 
-Download with the GitHub CLI:
-
-```console
-$ gh release download --repo vblonsky/MySQL_UDF_revshell
-```
-
-## Usage
 
 Tested on **Microsoft Windows 11 Pro x64 10.0.26100 N/A Build 26100, MySQL 8.0.42**.
 
