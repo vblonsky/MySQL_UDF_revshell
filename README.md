@@ -13,6 +13,25 @@ Based on the advisory [*"Using UDF in Penetration Testing Part 2"*](https://www.
 
 **For authorized penetration testing / lab use only.**
 
+## Download
+
+Prebuilt, statically-linked binaries are attached to the
+[latest release](https://github.com/vblonsky/MySQL_UDF_revshell/releases/latest)
+(they are not stored in the git tree):
+
+| Target         | Asset                        |
+|----------------|------------------------------|
+| Windows x86-64 | `reverseShell_udf_win64.dll` |
+| Windows i386   | `reverseShell_udf_win32.dll` |
+| Linux x86-64   | `reverseShell_udf_linux64.so`|
+| Linux i386     | `reverseShell_udf_linux32.so`|
+
+Download with the GitHub CLI:
+
+```console
+$ gh release download --repo vblonsky/MySQL_UDF_revshell
+```
+
 ## Usage
 
 Tested on **Microsoft Windows 11 Pro x64 10.0.26100 N/A Build 26100, MySQL 8.0.42**.
@@ -31,7 +50,8 @@ mysql> show variables like 'plugin_dir';
 ### 2. Copy the library into the plugin directory
 
 Copy the matching binary for the target architecture, e.g. `reverseShell_udf_win64.dll`
-on a 64-bit Windows host, into the directory shown above.
+on a 64-bit Windows host, into the directory shown above. Download it from the
+[latest release](https://github.com/vblonsky/MySQL_UDF_revshell/releases/latest).
 
 
 ### 3. Register the function
@@ -147,12 +167,13 @@ $ gcc -m32 -shared -fPIC -O2 -s -nostdlib -fno-stack-protector \
 .
 ├── src/reverseShell_udf.c   # single cross-platform source (Windows + Linux)
 ├── build.sh                 # build script (macOS Intel, cross-compilation)
-├── reverseShell_udf_win64.dll
-├── reverseShell_udf_win32.dll
-├── reverseShell_udf_linux64.so
-└── reverseShell_udf_linux32.so
+└── README.md
 ```
 
 The exported symbols are `reverseShell_udf` and `reverseShell_udf_init`.
 The binary is self-contained: the Windows DLL imports only `KERNEL32.dll` and
 `WS2_32.dll`, and the Linux `.so` has no `DT_NEEDED` entries.
+
+Compiled binaries are distributed through
+[GitHub Releases](https://github.com/vblonsky/MySQL_UDF_revshell/releases) and
+are ignored by git (see `.gitignore`); run `./build.sh` to rebuild them locally.

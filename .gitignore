@@ -1,0 +1,3 @@
+# Compiled UDF libraries (distributed via GitHub Releases)
+reverseShell_udf_*.dll
+reverseShell_udf_*.so
